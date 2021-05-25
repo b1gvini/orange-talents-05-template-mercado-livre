@@ -34,6 +34,11 @@ public class Usuario {
         this.senha = new BCryptPasswordEncoder().encode(senha);
         this.criadoEm = OffsetDateTime.now();
     }
+	public String getEmail() {
+		return email;
+	}
+    
+    
 
 
 }
