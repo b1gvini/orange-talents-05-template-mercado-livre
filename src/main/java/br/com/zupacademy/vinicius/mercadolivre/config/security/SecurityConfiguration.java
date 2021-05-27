@@ -35,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
         	.antMatchers(HttpMethod.POST, "/usuarios").permitAll()
         	.antMatchers(HttpMethod.POST, "/categorias").authenticated() //testando cadastro de categoria apenas autenticado por jwt.
+        	.antMatchers(HttpMethod.POST, "/produtos").authenticated()
         	.antMatchers(HttpMethod.POST, "/auth").permitAll()
         	.anyRequest().authenticated()
         	.and().csrf().disable()
