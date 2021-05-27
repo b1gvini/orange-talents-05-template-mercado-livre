@@ -1,9 +1,10 @@
-package br.com.zupacademy.vinicius.mercadolivre.cadastrousuario;
+package br.com.zupacademy.vinicius.mercadolivre.usuario.cadastro;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.zupacademy.vinicius.mercadolivre.config.validacao.UniqueValue;
+import br.com.zupacademy.vinicius.mercadolivre.usuario.Usuario;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.mercadolivre.config.validacao;
+package br.com.zupacademy.vinicius.mercadolivre.config.exception;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ErroDeValidacaoHandler {
+public class ErroHandler {
 	
 		@Autowired
 		private MessageSource messageSource;

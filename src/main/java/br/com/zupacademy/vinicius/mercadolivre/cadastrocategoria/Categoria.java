@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 @Entity
 public class Categoria {
 
@@ -20,6 +18,7 @@ public class Categoria {
 	@ManyToOne
 	private Categoria categoriaMae;
 
+	@Deprecated
 	public Categoria() {
 
 	}

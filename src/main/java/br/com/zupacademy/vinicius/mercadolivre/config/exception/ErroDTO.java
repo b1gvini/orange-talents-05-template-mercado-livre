@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.mercadolivre.config.validacao;
+package br.com.zupacademy.vinicius.mercadolivre.config.exception;
 
 public class ErroDTO {
 	
