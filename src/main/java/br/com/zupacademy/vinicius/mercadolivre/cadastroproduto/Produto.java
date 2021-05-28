@@ -46,10 +46,6 @@ public class Produto {
 	@PositiveOrZero
 	private Integer quantidade;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
-	@Size(min = 3)
-	private Set<Caracteristica> caracteristicas = new HashSet<>();
-
 	@Column(columnDefinition = "text")
 	@Length(max = 1000)
 	private String descricao;
@@ -58,6 +54,13 @@ public class Produto {
 	private Categoria categoria;
 
 	private OffsetDateTime criadoEm;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
+	@Size(min = 3)
+	private Set<Caracteristica> caracteristicas = new HashSet<>();
+
+	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "produto")
+	private Set<ImagemProduto> imagens = new HashSet<>();
 
 	@Deprecated
 	public Produto() {
@@ -102,7 +105,17 @@ public class Produto {
 			return false;
 		return true;
 	}
-	
-	
+
+	public void associaImagens(Set<String> links) {
+
+		Set<ImagemProduto> imagens = links.stream().map(link -> new ImagemProduto(this, link))
+				.collect(Collectors.toSet());
+		this.imagens.addAll(imagens);
+	}
+
+	public boolean pertenceAoUsuario(Usuario usuarioDono) {
+
+		return usuario.equals(usuarioDono);
+	}
 
 }
