@@ -18,11 +18,13 @@ import org.hibernate.validator.constraints.Length;
 import br.com.zupacademy.vinicius.mercadolivre.cadastrocategoria.Categoria;
 import br.com.zupacademy.vinicius.mercadolivre.cadastrocategoria.CategoriaRepository;
 import br.com.zupacademy.vinicius.mercadolivre.config.validacao.ExistingID;
+import br.com.zupacademy.vinicius.mercadolivre.config.validacao.UniqueValue;
 import br.com.zupacademy.vinicius.mercadolivre.usuario.Usuario;
 
 public class NovoProdutoRequest {
 
 	@NotBlank
+	@UniqueValue(domainClass = Produto.class, fieldName = "nome")
 	private String nome;
 
 	@Positive
