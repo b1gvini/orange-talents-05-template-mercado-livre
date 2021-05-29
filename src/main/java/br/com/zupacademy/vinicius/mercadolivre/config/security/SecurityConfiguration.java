@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     	auth.userDetailsService(autenticacao).passwordEncoder(bpasswordEncoder());
     }
 
+    //para conseguir injetar o authenticationManager já que o spring n reconhece.
     @Override
     @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
