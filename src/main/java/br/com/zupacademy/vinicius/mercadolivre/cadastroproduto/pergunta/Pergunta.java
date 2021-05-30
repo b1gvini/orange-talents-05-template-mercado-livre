@@ -45,5 +45,9 @@ public class Pergunta {
 	public String getTitulo() {
 		return this.titulo;
 	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
 }

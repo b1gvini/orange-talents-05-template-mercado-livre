@@ -26,7 +26,7 @@ public class CadastroPerguntaController {
 	private PerguntaRepository perguntaRepository;
 	
 	@Autowired
-	private Mensageria mensageria;
+	private Emails emails;
 	
 	@PostMapping("/produtos/{id}/perguntas")
 	public ResponseEntity<?> perguntar(@PathVariable("id") Long id, @RequestBody @Valid PerguntaRequest request,
@@ -39,7 +39,8 @@ public class CadastroPerguntaController {
 		Produto produtoExiste = produto.get();
 		Pergunta pergunta = request.converter(usuario, produtoExiste);
 		perguntaRepository.save(pergunta);
-		mensageria.enviaPerguntaParaUsuarioDono(pergunta, produtoExiste);
+		emails.novaPergunta(pergunta);
+		
 
 		return ResponseEntity.ok().build();
 	}
