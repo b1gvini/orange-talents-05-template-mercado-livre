@@ -117,5 +117,9 @@ public class Produto {
 
 		return usuario.equals(usuarioDono);
 	}
+	
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
 
 }
