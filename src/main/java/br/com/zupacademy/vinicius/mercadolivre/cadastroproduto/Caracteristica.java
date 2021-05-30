@@ -33,4 +33,13 @@ public class Caracteristica {
 		this.descricao = caracteristicaDTO.getDescricao();
 		this.produto = produto;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+	
 }

@@ -2,9 +2,13 @@ package br.com.zupacademy.vinicius.mercadolivre.cadastroproduto;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,6 +27,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.zupacademy.vinicius.mercadolivre.cadastrocategoria.Categoria;
+import br.com.zupacademy.vinicius.mercadolivre.cadastroproduto.opniao.Opiniao;
+import br.com.zupacademy.vinicius.mercadolivre.cadastroproduto.pergunta.Pergunta;
 import br.com.zupacademy.vinicius.mercadolivre.usuario.Usuario;
 
 @Entity
@@ -61,6 +67,12 @@ public class Produto {
 
 	@OneToMany(cascade = CascadeType.MERGE, mappedBy = "produto")
 	private Set<ImagemProduto> imagens = new HashSet<>();
+	
+	@OneToMany(mappedBy = "produto")
+	private List<Opiniao> opinioes = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "produto")
+	private List<Pergunta> perguntas = new ArrayList<>();
 
 	@Deprecated
 	public Produto() {
@@ -122,4 +134,48 @@ public class Produto {
 		return this.usuario;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public Set<Caracteristica> getCaracteristicas() {
+		return caracteristicas;
+	}
+	
+	public Set<ImagemProduto> getImagens(){
+		return imagens;
+	}
+	
+	public int getTotalOpinioes(){
+		return opinioes.size();
+	}
+	
+	public List<Opiniao> getOpinioes() {
+		return opinioes;
+	}
+	
+	public List<Pergunta> getPerguntas(){
+		return perguntas;
+	}
+
+	public BigDecimal getMediaNotas() {
+		List<Integer> notas = this.opinioes.stream().map(opiniao -> opiniao.getNota()).collect(Collectors.toList());
+		Integer totalNotas = 0;
+		for(int nota: notas) {
+			totalNotas+= nota;
+		}
+		Integer tamanhoLista = notas.size();
+		
+		return BigDecimal.valueOf(totalNotas).divide(BigDecimal.valueOf(tamanhoLista));
+	}
+	
+	
 }
