@@ -25,6 +25,7 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.util.Assert;
 
 import br.com.zupacademy.vinicius.mercadolivre.cadastrocategoria.Categoria;
 import br.com.zupacademy.vinicius.mercadolivre.cadastroproduto.opniao.Opiniao;
@@ -175,6 +176,15 @@ public class Produto {
 		Integer tamanhoLista = notas.size();
 		
 		return BigDecimal.valueOf(totalNotas).divide(BigDecimal.valueOf(tamanhoLista));
+	}
+
+	public boolean abataEstoque(int quantidade) {
+		Assert.isTrue(quantidade > 0, "a quantidade deve ser maior que 0");
+		if(quantidade <= this.quantidade) {
+			this.quantidade -= quantidade;
+			return true;
+		}
+		return false;
 	}
 	
 	

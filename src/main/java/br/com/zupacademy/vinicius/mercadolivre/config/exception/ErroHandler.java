@@ -9,6 +9,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -39,17 +40,25 @@ public class ErroHandler {
 		@ResponseStatus(HttpStatus.BAD_REQUEST)
 		@ExceptionHandler(BindException.class)
 		public List<ErroDTO> handleBind(BindException exception) {
-			System.out.println("To aqui sim");
 			List<ErroDTO> dto = new ArrayList<>();
 			List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+			if(!fieldErrors.isEmpty()) {
+				fieldErrors.forEach(e -> {
+					String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
+					ErroDTO erro = new ErroDTO(e.getField(), mensagem);
+					dto.add(erro);
+					
+				});
 			
-			fieldErrors.forEach(e -> {
+			return dto;
+			}
+			List<ObjectError> globals= exception.getBindingResult().getGlobalErrors();
+			globals.forEach(e -> {
 				String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-				ErroDTO erro = new ErroDTO(e.getField(), mensagem);
+				ErroDTO erro = new ErroDTO(e.getDefaultMessage(), mensagem);
 				dto.add(erro);
-			
+				
 			});
-			
 			return dto;
 		}
 		
